@@ -1,8 +1,14 @@
 def has_negatives(a):
-    """
-    YOUR CODE HERE
-    """
-    # Your code here
+    cache = {}          # Create a cache
+    result = []         # Create the array of results
+
+    for num in a:       # Add all positive numbers to the hash table
+        if num >= 0:
+            cache[num] = num 
+
+    for num in a:       # Check if the positive number in the hash table has a negative value
+        if num < 0 and -num in cache:
+            result.append(-num)
 
     return result
 
