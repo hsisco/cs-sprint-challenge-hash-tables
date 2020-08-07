@@ -1,7 +1,28 @@
 1. Hashing functions
-    
+    Takes data (like a string, or a file’s contents) and outputs a hash, a fixed-size string or number. 
+    We can think of a hash as a "fingerprint."
+    We can trust that a given file will always have the same hash, but we can't go from the hash back to the original file.
+    But what if we have limited slots in our array? Modulo: hashCode % arrSize = assigned_index
+    Modding ensures we get a whole number that's less than the limit (and at least 0)
+
 2. Collision resolution
+    Collision is when two keys hash to the same index in our array.
+    To avoid this, instead of storing the actual values in our array, let's have each array slot hold a pointer to a linked list holding the values for all the keys that hash to that index, making sure to include the keys as well as the values in each linked list node. Otherwise we wouldn't know which key was for which value.
+
 3. Performance of basic hash table operations
+    Fast get/put/delete -- O(1) time
+    Slow worst-case get/put/delete -- O(n) time
+    Single-directional get/put/delete: While you can look up the value for a given key in O(1) time, looking up the keys for a given value requires looping through the whole dataset —- O(n) time
+
 4. Load factor
+    The load factor represents the load in our hash table. On average, if there are n entries and b is the size of the array, there would be (n / b) entries on each index. This load factor needs to be kept low, so the number of entries at one index is less, so the complexity is almost constant -- O(1) time
+
 5. Automatic resizing
+    As the number of keys and values in our hash map exceeds the number of indices in the underlying array, hash collisions become inevitable.
+    To mitigate this, we expand our underlying array whenever things get crowded. That requires allocating a larger array and rehashing all of our existing keys to figure out their new position —- O(n) time
+
 6. Various use cases for hash tables
+    Hashing items and storing them in a hash table makes checking for virtually any element happen quickly and at the same speed, no matter how large your dataset. Even though it takes a few more lines of code, it executes a lot faster.
+    - Search for elements within a large data set
+    - Find duplicate elements in a data set
+    - Quickly store and retrieve elements from a large data set
