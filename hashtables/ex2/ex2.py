@@ -6,18 +6,17 @@ class Ticket:
 
 
 def reconstruct_trip(tickets, length):
-    hash_table = {}                                                 # Create a dictionary
+    cache = {}                                                  # Create a cache
+    route = [None] * length                                     # Create array with None as key value pairs
 
-    route = [None] * length                                         # Create array with None as key value pairs
-
-    for i in range(length):                                         # Iterate through array
-        hash_table[tickets[i].source] = tickets[i].destination      # Add the destinations to hash table 
-        if tickets[i].source == "NONE" and route[0] == None:        # If the current ticket index has a source of None ...
-            route[0] = tickets[i].destination                       # ... this is the first flight
+    for i in range(length):                                     # Iterate through array
+        cache[tickets[i].source] = tickets[i].destination       # Add the destinations to hash table 
+        if tickets[i].source == "NONE" and route[0] == None:    # If the current ticket index has a source of None ...
+            route[0] = tickets[i].destination                   # ... this is the first flight
 
     # Check the value of the starting location to construct the entire route 
     for ticket in range(length):                            # Iterate through array
         if ticket > 0 and route[ticket - 1] is not None:    # If the ticket isn't the first AND the last index is not None ...
-            route[ticket] = hash_table[route[ticket - 1]]   # ... Set destination to the ticket
+            route[ticket] = cache[route[ticket - 1]]   # ... Set destination to the ticket
 
     return route
